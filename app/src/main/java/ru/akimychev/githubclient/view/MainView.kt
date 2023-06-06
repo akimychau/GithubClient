@@ -1,5 +1,7 @@
 package ru.akimychev.githubclient.view
 
 interface MainView {
-    fun setBtnText(index: Int, text: String)
+    fun setBtnOneText(text: String)
+    fun setBtnTwoText(text: String)
+    fun setBtnThreeText(text: String)
 }
