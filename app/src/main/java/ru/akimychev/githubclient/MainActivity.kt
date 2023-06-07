@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ru.akimychev.githubclient.databinding.ActivityMainBinding
 import ru.akimychev.githubclient.presenter.MainPresenter
+import ru.akimychev.githubclient.utils.btnOne
+import ru.akimychev.githubclient.utils.btnThree
+import ru.akimychev.githubclient.utils.btnTwo
 import ru.akimychev.githubclient.view.MainView
 
 class MainActivity : AppCompatActivity(), MainView {
@@ -19,10 +22,10 @@ class MainActivity : AppCompatActivity(), MainView {
         _viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        with(viewBinding){
-            btnCounter1.setOnClickListener { presenter.counterClick(presenter.btnOne) }
-            btnCounter2.setOnClickListener { presenter.counterClick(presenter.btnTwo) }
-            btnCounter3.setOnClickListener { presenter.counterClick(presenter.btnThree) }
+        with(viewBinding) {
+            btnCounter1.setOnClickListener { presenter.counterClick(btnOne) }
+            btnCounter2.setOnClickListener { presenter.counterClick(btnTwo) }
+            btnCounter3.setOnClickListener { presenter.counterClick(btnThree) }
         }
     }
 
