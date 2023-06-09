@@ -1,48 +1,39 @@
 package ru.akimychev.githubclient
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 import ru.akimychev.githubclient.databinding.ActivityMainBinding
+import ru.akimychev.githubclient.model.CountersModel
 import ru.akimychev.githubclient.presenter.MainPresenter
-import ru.akimychev.githubclient.utils.btnOne
-import ru.akimychev.githubclient.utils.btnThree
-import ru.akimychev.githubclient.utils.btnTwo
 import ru.akimychev.githubclient.view.MainView
 
-class MainActivity : AppCompatActivity(), MainView {
-    private var _viewBinding: ActivityMainBinding? = null
-    private val viewBinding get() = _viewBinding!!
+class MainActivity : MvpAppCompatActivity(), MainView {
 
-    private val presenter = MainPresenter(this)
+    private var viewBinding: ActivityMainBinding? = null
 
+    private val presenter by moxyPresenter { MainPresenter(CountersModel()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        _viewBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(viewBinding.root)
+        viewBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(viewBinding?.root)
 
-        with(viewBinding) {
-            btnCounter1.setOnClickListener { presenter.counterClick(btnOne) }
-            btnCounter2.setOnClickListener { presenter.counterClick(btnTwo) }
-            btnCounter3.setOnClickListener { presenter.counterClick(btnThree) }
-        }
+        viewBinding?.btnCounter1?.setOnClickListener { presenter.counterClickBtnOne() }
+        viewBinding?.btnCounter2?.setOnClickListener { presenter.counterClickBtnTwo() }
+        viewBinding?.btnCounter3?.setOnClickListener { presenter.counterClickBtnThree() }
     }
 
     override fun setBtnOneText(text: String) {
-        viewBinding.btnCounter1.text = text
+        viewBinding?.btnCounter1?.text = text
     }
 
     override fun setBtnTwoText(text: String) {
-        viewBinding.btnCounter2.text = text
+        viewBinding?.btnCounter2?.text = text
     }
 
     override fun setBtnThreeText(text: String) {
-        viewBinding.btnCounter3.text = text
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _viewBinding = null
+        viewBinding?.btnCounter3?.text = text
     }
 }
