@@ -1,4 +1,4 @@
-package ru.akimychev.githubclient.ui
+package ru.akimychev.githubclient.ui.activity
 
 import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -8,8 +8,8 @@ import ru.akimychev.githubclient.App
 import ru.akimychev.githubclient.R
 import ru.akimychev.githubclient.databinding.ActivityMainBinding
 import ru.akimychev.githubclient.navigation.BackPressedListener
-import ru.akimychev.githubclient.presenter.MainPresenter
-import ru.akimychev.githubclient.view.MainView
+import ru.akimychev.githubclient.mvp.presenter.MainPresenter
+import ru.akimychev.githubclient.mvp.view.MainView
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 

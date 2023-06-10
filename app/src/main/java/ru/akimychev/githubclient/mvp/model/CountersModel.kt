@@ -1,4 +1,4 @@
-package ru.akimychev.githubclient.model
+package ru.akimychev.githubclient.mvp.model
 
 class CountersModel {
 

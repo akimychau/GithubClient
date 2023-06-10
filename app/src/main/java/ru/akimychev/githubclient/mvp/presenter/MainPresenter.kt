@@ -1,9 +1,9 @@
-package ru.akimychev.githubclient.presenter
+package ru.akimychev.githubclient.mvp.presenter
 
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 import ru.akimychev.githubclient.navigation.Screens
-import ru.akimychev.githubclient.view.MainView
+import ru.akimychev.githubclient.mvp.view.MainView
 
 class MainPresenter(private val router: Router) : MvpPresenter<MainView>() {
 

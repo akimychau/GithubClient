@@ -1,4 +1,4 @@
-package ru.akimychev.githubclient.view
+package ru.akimychev.githubclient.mvp.view
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
