@@ -2,12 +2,12 @@ package ru.akimychev.githubclient.mvp.presenter
 
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
-import ru.akimychev.githubclient.mvp.model.CountersModel
 import ru.akimychev.githubclient.mvp.model.GithubUser
 import ru.akimychev.githubclient.mvp.model.RepositoryImpl
 import ru.akimychev.githubclient.mvp.presenter.list.IUserListPresenter
 import ru.akimychev.githubclient.mvp.view.UsersView
 import ru.akimychev.githubclient.mvp.view.list.IUserItemView
+import ru.akimychev.githubclient.navigation.Screens
 
 class UsersPresenter(private val repositoryImpl: RepositoryImpl, private val router: Router) :
     MvpPresenter<UsersView>() {
@@ -35,8 +35,8 @@ class UsersPresenter(private val repositoryImpl: RepositoryImpl, private val rou
 
         loadData()
 
-        usersListPresenter.itemClickListener = { itemView ->
-        //TODO
+        usersListPresenter.itemClickListener = {
+            router.navigateTo(Screens.details(usersListPresenter.users[it.pos]))
         }
     }
 

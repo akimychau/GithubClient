@@ -29,6 +29,7 @@ class UsersRVAdapter(private val presenter: IUserListPresenter) :
 
         override fun setLogin(login: String) = with(viewBinding) {
             userLogin.text = login
+            login
         }
 
         override var pos = RV_INVALID_INDEX
