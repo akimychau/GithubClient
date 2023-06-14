@@ -1,5 +1,7 @@
 package ru.akimychev.githubclient.mvp.model
 
+import io.reactivex.rxjava3.core.Observable
+
 class RepositoryImpl : Repository {
 
     private val users = listOf(
@@ -10,5 +12,5 @@ class RepositoryImpl : Repository {
         GithubUser("Rat")
     )
 
-    override fun getUsers() = users
+    override fun getUsers(): Observable<GithubUser> = Observable.fromIterable(users)
 }

@@ -1,6 +1,8 @@
 package ru.akimychev.githubclient.mvp.presenter
 
+import android.util.Log
 import com.github.terrakok.cicerone.Router
+import io.reactivex.rxjava3.disposables.Disposable
 import moxy.MvpPresenter
 import ru.akimychev.githubclient.mvp.model.GithubUser
 import ru.akimychev.githubclient.mvp.model.RepositoryImpl
@@ -11,6 +13,8 @@ import ru.akimychev.githubclient.navigation.Screens
 
 class UsersPresenter(private val repositoryImpl: RepositoryImpl, private val router: Router) :
     MvpPresenter<UsersView>() {
+
+    private var disposable: Disposable? = null
 
     class UsersListPresenter : IUserListPresenter {
 
@@ -31,9 +35,9 @@ class UsersPresenter(private val repositoryImpl: RepositoryImpl, private val rou
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        viewState.init()
-
         loadData()
+
+        viewState.init()
 
         usersListPresenter.itemClickListener = {
             router.navigateTo(Screens.details(usersListPresenter.users[it.pos]))
@@ -41,16 +45,21 @@ class UsersPresenter(private val repositoryImpl: RepositoryImpl, private val rou
     }
 
     private fun loadData() {
-
-        val users = repositoryImpl.getUsers()
-
-        usersListPresenter.users.addAll(users)
-
-        viewState.updateList()
+        disposable = repositoryImpl.getUsers().subscribe({
+            usersListPresenter.users.add(it)
+            viewState.updateList()
+        }, {
+            Log.e("@@@", "Something went wrong")
+        })
     }
 
     fun onBackPressed(): Boolean {
         router.exit()
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable?.dispose()
     }
 }

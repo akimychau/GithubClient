@@ -10,6 +10,7 @@ import ru.akimychev.githubclient.databinding.ActivityMainBinding
 import ru.akimychev.githubclient.navigation.BackPressedListener
 import ru.akimychev.githubclient.mvp.presenter.MainPresenter
 import ru.akimychev.githubclient.mvp.view.MainView
+import java.util.Observable
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 

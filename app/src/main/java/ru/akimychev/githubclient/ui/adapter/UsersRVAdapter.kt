@@ -12,8 +12,12 @@ class UsersRVAdapter(private val presenter: IUserListPresenter) :
     RecyclerView.Adapter<UsersRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(ItemUserBinding.inflate(LayoutInflater.from(parent.context),
-            parent, false)).apply {
+        ViewHolder(
+            ItemUserBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent, false
+            )
+        ).apply {
             itemView.setOnClickListener {
                 presenter.itemClickListener?.invoke(this)
             }
@@ -29,7 +33,6 @@ class UsersRVAdapter(private val presenter: IUserListPresenter) :
 
         override fun setLogin(login: String) = with(viewBinding) {
             userLogin.text = login
-            login
         }
 
         override var pos = RV_INVALID_INDEX

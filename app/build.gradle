@@ -35,6 +35,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'ru.akimychev.githubclient'
 }
 
 dependencies {
@@ -55,4 +56,8 @@ dependencies {
 
     //Cicerone
     implementation 'com.github.terrakok:cicerone:7.1'
+
+    //RxJava
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.3'
 }
