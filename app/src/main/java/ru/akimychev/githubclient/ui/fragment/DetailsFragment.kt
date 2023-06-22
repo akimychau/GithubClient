@@ -8,7 +8,7 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.akimychev.githubclient.App
 import ru.akimychev.githubclient.databinding.FragmentDetailsBinding
-import ru.akimychev.githubclient.mvp.model.GithubUser
+import ru.akimychev.githubclient.mvp.model.entity.GithubUser
 import ru.akimychev.githubclient.mvp.presenter.DetailsPresenter
 import ru.akimychev.githubclient.mvp.view.DetailsView
 import ru.akimychev.githubclient.navigation.BackPressedListener

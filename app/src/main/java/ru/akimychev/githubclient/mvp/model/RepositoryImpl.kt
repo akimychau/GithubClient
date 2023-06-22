@@ -1,16 +1,11 @@
 package ru.akimychev.githubclient.mvp.model
 
-import io.reactivex.rxjava3.core.Observable
 
-class RepositoryImpl : Repository {
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
+import ru.akimychev.githubclient.mvp.model.api.IDataSource
+import ru.akimychev.githubclient.mvp.model.entity.GithubUser
 
-    private val users = listOf(
-        GithubUser("Cat"),
-        GithubUser("Dog"),
-        GithubUser("Mouse"),
-        GithubUser("Pig"),
-        GithubUser("Rat")
-    )
-
-    override fun getUsers(): Observable<GithubUser> = Observable.fromIterable(users)
+class RepositoryImpl(private val api: IDataSource) : Repository {
+    override fun getUsers(): Single<List<GithubUser>> = api.getAllUsers().subscribeOn(Schedulers.io())
 }
