@@ -5,4 +5,5 @@
     <string name="counter_one">Counter 1</string>
     <string name="_0">0</string>
     <string name="text">Login</string>
+    <string name="reposName">ReposName</string>
 </resources>
