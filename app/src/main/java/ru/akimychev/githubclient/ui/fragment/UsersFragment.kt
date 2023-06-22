@@ -17,6 +17,7 @@ import ru.akimychev.githubclient.mvp.presenter.UsersPresenter
 import ru.akimychev.githubclient.mvp.view.UsersView
 import ru.akimychev.githubclient.navigation.BackPressedListener
 import ru.akimychev.githubclient.ui.adapter.UsersRVAdapter
+import ru.akimychev.githubclient.ui.image.GlideImageLoader
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackPressedListener {
 
@@ -45,7 +46,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackPressedListener {
 
     override fun init() {
         viewBinding.rvUsers.layoutManager = LinearLayoutManager(context)
-        adapter = UsersRVAdapter(presenter.usersListPresenter)
+        adapter = UsersRVAdapter(presenter.usersListPresenter, GlideImageLoader())
         viewBinding.rvUsers.adapter = adapter
     }
 
