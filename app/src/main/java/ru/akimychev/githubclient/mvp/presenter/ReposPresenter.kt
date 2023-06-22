@@ -11,6 +11,7 @@ import ru.akimychev.githubclient.mvp.model.entity.GithubUserRepos
 import ru.akimychev.githubclient.mvp.presenter.list.IReposListPresenter
 import ru.akimychev.githubclient.mvp.view.ReposView
 import ru.akimychev.githubclient.mvp.view.list.IReposItemView
+import ru.akimychev.githubclient.navigation.Screens
 
 class ReposPresenter(
     private val user: GithubUser?,
@@ -44,6 +45,10 @@ class ReposPresenter(
         loadData()
 
         user?.let { viewState.init(it) }
+
+        reposListPresenter.itemClickListener = {
+            router.navigateTo(Screens.forks(reposListPresenter.repos[it.pos]))
+        }
     }
 
     private fun loadData() {
