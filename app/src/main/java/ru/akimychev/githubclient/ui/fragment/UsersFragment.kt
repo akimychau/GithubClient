@@ -11,9 +11,11 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.akimychev.githubclient.App
 import ru.akimychev.githubclient.databinding.FragmentUsersBinding
-import ru.akimychev.githubclient.mvp.model.RepositoryImpl
 import ru.akimychev.githubclient.mvp.model.api.ApiHolder
+import ru.akimychev.githubclient.mvp.model.cache.UserCacheImpl
+import ru.akimychev.githubclient.mvp.model.database.AppDatabase
 import ru.akimychev.githubclient.mvp.presenter.UsersPresenter
+import ru.akimychev.githubclient.mvp.repository.RepositoryGithubUserImpl
 import ru.akimychev.githubclient.mvp.view.UsersView
 import ru.akimychev.githubclient.navigation.BackPressedListener
 import ru.akimychev.githubclient.ui.adapter.UsersRVAdapter
@@ -26,7 +28,11 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackPressedListener {
 
     private val presenter by moxyPresenter {
         UsersPresenter(
-            RepositoryImpl(ApiHolder.api),
+            RepositoryGithubUserImpl(
+                ApiHolder.api,
+                App.networkStatus,
+                UserCacheImpl(AppDatabase.getInstance())
+            ),
             App.instance.router,
             AndroidSchedulers.mainThread()
         )

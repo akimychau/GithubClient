@@ -11,10 +11,12 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.akimychev.githubclient.App
 import ru.akimychev.githubclient.databinding.FragmentReposBinding
-import ru.akimychev.githubclient.mvp.model.RepositoryImpl
 import ru.akimychev.githubclient.mvp.model.api.ApiHolder
+import ru.akimychev.githubclient.mvp.model.cache.ReposCacheImpl
+import ru.akimychev.githubclient.mvp.model.database.AppDatabase
 import ru.akimychev.githubclient.mvp.model.entity.GithubUser
 import ru.akimychev.githubclient.mvp.presenter.ReposPresenter
+import ru.akimychev.githubclient.mvp.repository.RepositoryGithubUserReposImpl
 import ru.akimychev.githubclient.mvp.view.ReposView
 import ru.akimychev.githubclient.navigation.BackPressedListener
 import ru.akimychev.githubclient.ui.adapter.ReposRVAdapter
@@ -30,7 +32,11 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackPressedListener {
         ReposPresenter(
             user,
             App.instance.router,
-            RepositoryImpl(ApiHolder.api),
+            RepositoryGithubUserReposImpl(
+                ApiHolder.api,
+                App.networkStatus,
+                ReposCacheImpl(AppDatabase.getInstance())
+            ),
             AndroidSchedulers.mainThread()
         )
     }

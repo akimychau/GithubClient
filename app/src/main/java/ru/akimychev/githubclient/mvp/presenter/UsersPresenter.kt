@@ -5,16 +5,16 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
-import ru.akimychev.githubclient.mvp.model.RepositoryImpl
 import ru.akimychev.githubclient.mvp.model.entity.GithubUser
 import ru.akimychev.githubclient.mvp.presenter.list.IUserListPresenter
+import ru.akimychev.githubclient.mvp.repository.RepositoryGithubUserImpl
 import ru.akimychev.githubclient.mvp.view.UsersView
 import ru.akimychev.githubclient.mvp.view.list.IUserItemView
 import ru.akimychev.githubclient.navigation.Screens
 import ru.akimychev.githubclient.utils.disposeBy
 
 class UsersPresenter(
-    private val repositoryImpl: RepositoryImpl,
+    private val repositoryGithubUserReposImpl: RepositoryGithubUserImpl,
     private val router: Router,
     private val uiScheduler: Scheduler
 ) :
@@ -52,7 +52,7 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-        repositoryImpl.getUsers().observeOn(uiScheduler)
+        repositoryGithubUserReposImpl.getUsers().observeOn(uiScheduler)
             .subscribe({
                 usersListPresenter.users.addAll(it)
                 viewState.updateList()

@@ -3,25 +3,26 @@ package ru.akimychev.githubclient.mvp.presenter
 import android.util.Log
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
-import ru.akimychev.githubclient.mvp.model.RepositoryImpl
+import ru.akimychev.githubclient.mvp.repository.RepositoryGithubUserReposImpl
 import ru.akimychev.githubclient.mvp.model.entity.GithubUser
 import ru.akimychev.githubclient.mvp.model.entity.GithubUserRepos
 import ru.akimychev.githubclient.mvp.presenter.list.IReposListPresenter
 import ru.akimychev.githubclient.mvp.view.ReposView
 import ru.akimychev.githubclient.mvp.view.list.IReposItemView
 import ru.akimychev.githubclient.navigation.Screens
+import ru.akimychev.githubclient.utils.disposeBy
 
 class ReposPresenter(
     private val user: GithubUser?,
     private val router: Router,
-    private val repositoryImpl: RepositoryImpl,
+    private val repositoryGithubUserReposImpl: RepositoryGithubUserReposImpl,
     private val uiScheduler: Scheduler
 ) :
     MvpPresenter<ReposView>() {
 
-    private var disposable: Disposable? = null
+    private var bag = CompositeDisposable()
 
     class ReposListPresenter : IReposListPresenter {
 
@@ -53,17 +54,18 @@ class ReposPresenter(
 
     private fun loadData() {
 
-        disposable = user?.reposUrl?.let { reposUrl ->
-            repositoryImpl.getRepos(reposUrl)
+        user?.let { user ->
+            repositoryGithubUserReposImpl.getRepos(user)
                 .observeOn(uiScheduler)
-                .subscribe({
-                    reposListPresenter.repos.addAll(it)
+                .subscribe({ repos ->
+                    reposListPresenter.repos.addAll(repos)
                     viewState.updateList()
                 }, {
                     Log.e("@@@", "Repo Something went wrong")
-                })
+                }).disposeBy(bag)
         }
     }
+
 
     fun onBackPressed(): Boolean {
         router.exit()
@@ -72,6 +74,6 @@ class ReposPresenter(
 
     override fun onDestroy() {
         super.onDestroy()
-        disposable?.dispose()
+        bag.dispose()
     }
 }
