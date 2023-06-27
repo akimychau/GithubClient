@@ -17,7 +17,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun reposDao(): RoomGithubUserReposDao
 
     companion object {
-        private const val DB_NAME = "github.db"
+        const val DB_NAME = "github.db"
         private var instance: AppDatabase? = null
 
         fun getInstance() = instance ?: throw RuntimeException("Database wasn't created")
