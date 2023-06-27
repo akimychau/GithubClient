@@ -34,7 +34,8 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackPressedListener {
                 UserCacheImpl(AppDatabase.getInstance())
             ),
             App.instance.router,
-            AndroidSchedulers.mainThread()
+            AndroidSchedulers.mainThread(),
+            App.instance.screens
         )
     }
     private var adapter: UsersRVAdapter? = null

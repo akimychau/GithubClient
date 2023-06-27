@@ -10,13 +10,14 @@ import ru.akimychev.githubclient.mvp.presenter.list.IUserListPresenter
 import ru.akimychev.githubclient.mvp.repository.RepositoryGithubUserImpl
 import ru.akimychev.githubclient.mvp.view.UsersView
 import ru.akimychev.githubclient.mvp.view.list.IUserItemView
-import ru.akimychev.githubclient.navigation.Screens
+import ru.akimychev.githubclient.navigation.IScreens
 import ru.akimychev.githubclient.utils.disposeBy
 
 class UsersPresenter(
     private val repositoryGithubUserReposImpl: RepositoryGithubUserImpl,
     private val router: Router,
-    private val uiScheduler: Scheduler
+    private val uiScheduler: Scheduler,
+    private val screen: IScreens
 ) :
     MvpPresenter<UsersView>() {
 
@@ -47,7 +48,7 @@ class UsersPresenter(
         viewState.init()
 
         usersListPresenter.itemClickListener = {
-            router.navigateTo(Screens.details(usersListPresenter.users[it.pos]))
+            router.navigateTo(screen.details(usersListPresenter.users[it.pos]))
         }
     }
 

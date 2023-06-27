@@ -7,12 +7,12 @@ import ru.akimychev.githubclient.ui.fragment.ForksCountFragment
 import ru.akimychev.githubclient.ui.fragment.ReposFragment
 import ru.akimychev.githubclient.ui.fragment.UsersFragment
 
-object Screens {
+class Screens : IScreens {
 
-    fun users() = FragmentScreen { UsersFragment.newInstance() }
+    override fun users() = FragmentScreen { UsersFragment.newInstance() }
 
-    fun details(user: GithubUser) = FragmentScreen { ReposFragment.newInstance(user) }
+    override fun details(user: GithubUser) = FragmentScreen { ReposFragment.newInstance(user) }
 
-    fun forks(forksCount: GithubUserRepos) =
+    override fun forks(forksCount: GithubUserRepos) =
         FragmentScreen { ForksCountFragment.newInstance(forksCount) }
 }

@@ -37,7 +37,8 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackPressedListener {
                 App.networkStatus,
                 ReposCacheImpl(AppDatabase.getInstance())
             ),
-            AndroidSchedulers.mainThread()
+            AndroidSchedulers.mainThread(),
+            App.instance.screens
         )
     }
 

@@ -7,17 +7,21 @@ import moxy.ktx.moxyPresenter
 import ru.akimychev.githubclient.App
 import ru.akimychev.githubclient.R
 import ru.akimychev.githubclient.databinding.ActivityMainBinding
-import ru.akimychev.githubclient.navigation.BackPressedListener
 import ru.akimychev.githubclient.mvp.presenter.MainPresenter
 import ru.akimychev.githubclient.mvp.view.MainView
-import java.util.Observable
+import ru.akimychev.githubclient.navigation.BackPressedListener
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
     private val navigator = AppNavigator(this, R.id.container)
     private var viewBinding: ActivityMainBinding? = null
 
-    private val presenter by moxyPresenter { MainPresenter(App.instance.router) }
+    private val presenter by moxyPresenter {
+        MainPresenter(
+            App.instance.router,
+            App.instance.screens
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

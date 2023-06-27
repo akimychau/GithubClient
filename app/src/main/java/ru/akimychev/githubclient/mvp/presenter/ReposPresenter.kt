@@ -5,20 +5,21 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
-import ru.akimychev.githubclient.mvp.repository.RepositoryGithubUserReposImpl
 import ru.akimychev.githubclient.mvp.model.entity.GithubUser
 import ru.akimychev.githubclient.mvp.model.entity.GithubUserRepos
 import ru.akimychev.githubclient.mvp.presenter.list.IReposListPresenter
+import ru.akimychev.githubclient.mvp.repository.RepositoryGithubUserReposImpl
 import ru.akimychev.githubclient.mvp.view.ReposView
 import ru.akimychev.githubclient.mvp.view.list.IReposItemView
-import ru.akimychev.githubclient.navigation.Screens
+import ru.akimychev.githubclient.navigation.IScreens
 import ru.akimychev.githubclient.utils.disposeBy
 
 class ReposPresenter(
     private val user: GithubUser?,
     private val router: Router,
     private val repositoryGithubUserReposImpl: RepositoryGithubUserReposImpl,
-    private val uiScheduler: Scheduler
+    private val uiScheduler: Scheduler,
+    private val screen: IScreens
 ) :
     MvpPresenter<ReposView>() {
 
@@ -48,7 +49,7 @@ class ReposPresenter(
         user?.let { viewState.init(it) }
 
         reposListPresenter.itemClickListener = {
-            router.navigateTo(Screens.forks(reposListPresenter.repos[it.pos]))
+            router.navigateTo(screen.forks(reposListPresenter.repos[it.pos]))
         }
     }
 
