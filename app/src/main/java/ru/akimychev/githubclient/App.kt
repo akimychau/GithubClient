@@ -3,33 +3,26 @@ package ru.akimychev.githubclient
 import android.app.Application
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
-import ru.akimychev.githubclient.mvp.model.database.AppDatabase
-import ru.akimychev.githubclient.mvp.model.network.INetworkStatus
+import ru.akimychev.githubclient.di.AppComponent
+import ru.akimychev.githubclient.di.DaggerAppComponent
+import ru.akimychev.githubclient.di.modules.AppModule
 import ru.akimychev.githubclient.navigation.IScreens
 import ru.akimychev.githubclient.navigation.Screens
-import ru.akimychev.githubclient.ui.network.ConnectivityListener
 
 class App : Application() {
 
+    lateinit var appComponent: AppComponent
+
     companion object {
         lateinit var instance: App
-        lateinit var networkStatus: INetworkStatus
     }
-
-    private val cicerone: Cicerone<Router> by lazy {
-        Cicerone.create()
-    }
-    val router get() = cicerone.router
-    val navigatorHolder get() = cicerone.getNavigatorHolder()
-
-    val screens: IScreens = Screens()
 
     override fun onCreate() {
         super.onCreate()
         instance = this
 
-        networkStatus = ConnectivityListener(instance)
-
-        AppDatabase.create(this)
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
     }
 }

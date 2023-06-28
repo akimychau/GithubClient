@@ -12,9 +12,8 @@ import ru.akimychev.githubclient.mvp.presenter.MainPresenter
 import ru.akimychev.githubclient.mvp.presenter.ReposPresenter
 import ru.akimychev.githubclient.mvp.presenter.UsersPresenter
 import ru.akimychev.githubclient.ui.activity.MainActivity
-import ru.akimychev.githubclient.ui.fragment.ForksCountFragment
+import ru.akimychev.githubclient.ui.adapter.UsersRVAdapter
 import ru.akimychev.githubclient.ui.fragment.ReposFragment
-import ru.akimychev.githubclient.ui.fragment.UsersFragment
 import javax.inject.Singleton
 
 @Singleton
@@ -34,8 +33,10 @@ interface AppComponent {
     fun inject(mainPresenter: MainPresenter)
 
     fun inject(githubUsersPresenter: UsersPresenter)
+    fun inject(usersRVAdapter: UsersRVAdapter)
 
     fun inject(githubUserReposPresenter: ReposPresenter)
+    fun inject(fragment: ReposFragment)
 
     fun inject(forksCountPresenter: ForksCountPresenter)
 }

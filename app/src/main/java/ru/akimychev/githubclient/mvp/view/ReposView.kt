@@ -10,4 +10,5 @@ interface ReposView : MvpView {
 
     fun init(user: GithubUser)
     fun updateList()
+    fun loadAvatarAndLogin(user: GithubUser)
 }

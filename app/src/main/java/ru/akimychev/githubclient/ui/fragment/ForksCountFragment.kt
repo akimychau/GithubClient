@@ -27,7 +27,13 @@ class ForksCountFragment : MvpAppCompatFragment(), ForksCountView, BackPressedLi
     private var _viewBinding: FragmentForksCountBinding? = null
     private val viewBinding get() = _viewBinding!!
 
-    private val presenter: ForksCountPresenter by moxyPresenter { ForksCountPresenter(App.instance.router) }
+    private val presenter: ForksCountPresenter by moxyPresenter {
+        ForksCountPresenter().apply {
+            App.instance.appComponent.inject(
+                this
+            )
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

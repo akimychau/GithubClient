@@ -8,20 +8,26 @@ import moxy.MvpPresenter
 import ru.akimychev.githubclient.mvp.model.entity.GithubUser
 import ru.akimychev.githubclient.mvp.model.entity.GithubUserRepos
 import ru.akimychev.githubclient.mvp.presenter.list.IReposListPresenter
-import ru.akimychev.githubclient.mvp.repository.RepositoryGithubUserReposImpl
+import ru.akimychev.githubclient.mvp.repository.IRepositoryGithubUserRepos
 import ru.akimychev.githubclient.mvp.view.ReposView
 import ru.akimychev.githubclient.mvp.view.list.IReposItemView
 import ru.akimychev.githubclient.navigation.IScreens
 import ru.akimychev.githubclient.utils.disposeBy
+import javax.inject.Inject
 
-class ReposPresenter(
-    private val user: GithubUser?,
-    private val router: Router,
-    private val repositoryGithubUserReposImpl: RepositoryGithubUserReposImpl,
-    private val uiScheduler: Scheduler,
-    private val screen: IScreens
-) :
-    MvpPresenter<ReposView>() {
+class ReposPresenter(private val user: GithubUser?) : MvpPresenter<ReposView>() {
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var repositoryGithubUserReposImpl: IRepositoryGithubUserRepos
+
+    @Inject
+    lateinit var uiScheduler: Scheduler
+
+    @Inject
+    lateinit var screen: IScreens
 
     private var bag = CompositeDisposable()
 
@@ -44,6 +50,8 @@ class ReposPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
+        user?.let { viewState.loadAvatarAndLogin(it) }
+
         loadData()
 
         user?.let { viewState.init(it) }
@@ -55,8 +63,8 @@ class ReposPresenter(
 
     private fun loadData() {
 
-        user?.let { user ->
-            repositoryGithubUserReposImpl.getRepos(user)
+        user?.let {
+            repositoryGithubUserReposImpl.getRepos(it)
                 .observeOn(uiScheduler)
                 .subscribe({ repos ->
                     reposListPresenter.repos.addAll(repos)

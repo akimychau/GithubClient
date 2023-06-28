@@ -6,20 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.akimychev.githubclient.App
 import ru.akimychev.githubclient.databinding.FragmentUsersBinding
-import ru.akimychev.githubclient.mvp.model.api.ApiHolder
-import ru.akimychev.githubclient.mvp.model.cache.UserCacheImpl
-import ru.akimychev.githubclient.mvp.model.database.AppDatabase
 import ru.akimychev.githubclient.mvp.presenter.UsersPresenter
-import ru.akimychev.githubclient.mvp.repository.RepositoryGithubUserImpl
 import ru.akimychev.githubclient.mvp.view.UsersView
 import ru.akimychev.githubclient.navigation.BackPressedListener
 import ru.akimychev.githubclient.ui.adapter.UsersRVAdapter
-import ru.akimychev.githubclient.ui.image.GlideImageLoader
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackPressedListener {
 
@@ -27,16 +21,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackPressedListener {
     private val viewBinding get() = _viewBinding!!
 
     private val presenter by moxyPresenter {
-        UsersPresenter(
-            RepositoryGithubUserImpl(
-                ApiHolder.api,
-                App.networkStatus,
-                UserCacheImpl(AppDatabase.getInstance())
-            ),
-            App.instance.router,
-            AndroidSchedulers.mainThread(),
-            App.instance.screens
-        )
+        UsersPresenter().apply { App.instance.appComponent.inject(this) }
     }
     private var adapter: UsersRVAdapter? = null
 
@@ -53,7 +38,9 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackPressedListener {
 
     override fun init() {
         viewBinding.rvUsers.layoutManager = LinearLayoutManager(context)
-        adapter = UsersRVAdapter(presenter.usersListPresenter, GlideImageLoader())
+        adapter = UsersRVAdapter(presenter.usersListPresenter).apply {
+            App.instance.appComponent.inject(this)
+        }
         viewBinding.rvUsers.adapter = adapter
     }
 
