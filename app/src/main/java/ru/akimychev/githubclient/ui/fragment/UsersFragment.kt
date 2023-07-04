@@ -21,7 +21,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackPressedListener {
     private val viewBinding get() = _viewBinding!!
 
     private val presenter by moxyPresenter {
-        UsersPresenter().apply { App.instance.appComponent.inject(this) }
+        UsersPresenter().apply { App.instance.initUserSubComponent().inject(this)}
     }
     private var adapter: UsersRVAdapter? = null
 
@@ -39,7 +39,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackPressedListener {
     override fun init() {
         viewBinding.rvUsers.layoutManager = LinearLayoutManager(context)
         adapter = UsersRVAdapter(presenter.usersListPresenter).apply {
-            App.instance.appComponent.inject(this)
+            App.instance.initUserSubComponent().inject(this)
         }
         viewBinding.rvUsers.adapter = adapter
     }

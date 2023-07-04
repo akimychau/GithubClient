@@ -29,7 +29,7 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackPressedListener {
 
     private val presenter by moxyPresenter {
         val user = arguments?.getParcelable(BUNDLE_GITHUB_USER) as GithubUser?
-        ReposPresenter(user).apply { App.instance.appComponent.inject(this) }
+        ReposPresenter(user).apply { App.instance.initReposSubComponent()?.inject(this) }
     }
 
     private var adapter: ReposRVAdapter? = null
@@ -41,7 +41,7 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackPressedListener {
     ): View {
         super.onCreate(savedInstanceState)
 
-        App.instance.appComponent.inject(this)
+        App.instance.initReposSubComponent()?.inject(this)
 
         _viewBinding = FragmentReposBinding.inflate(inflater, container, false)
         return viewBinding.root

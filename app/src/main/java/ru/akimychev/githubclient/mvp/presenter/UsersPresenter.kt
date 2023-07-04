@@ -5,6 +5,7 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
+import ru.akimychev.githubclient.di.users.IUsersScopeContainer
 import ru.akimychev.githubclient.mvp.model.entity.GithubUser
 import ru.akimychev.githubclient.mvp.presenter.list.IUserListPresenter
 import ru.akimychev.githubclient.mvp.repository.IRepositoryGithubUser
@@ -28,7 +29,10 @@ class UsersPresenter : MvpPresenter<UsersView>() {
     @Inject
     lateinit var screen: IScreens
 
-    private var bag = CompositeDisposable()
+    @Inject
+    lateinit var usersScopeContainer: IUsersScopeContainer
+
+    private var disposable = CompositeDisposable()
 
     class UsersListPresenter : IUserListPresenter {
 
@@ -66,7 +70,7 @@ class UsersPresenter : MvpPresenter<UsersView>() {
                 viewState.updateList()
             }, {
                 Log.e("@@@", "Something went wrong")
-            }).disposeBy(bag)
+            }).disposeBy(disposable)
     }
 
     fun onBackPressed(): Boolean {
@@ -75,7 +79,8 @@ class UsersPresenter : MvpPresenter<UsersView>() {
     }
 
     override fun onDestroy() {
+        usersScopeContainer.releaseUserSubComponent()
         super.onDestroy()
-        bag.dispose()
+        disposable.dispose()
     }
 }

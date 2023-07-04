@@ -5,6 +5,7 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
+import ru.akimychev.githubclient.di.repos.IReposScopeContainer
 import ru.akimychev.githubclient.mvp.model.entity.GithubUser
 import ru.akimychev.githubclient.mvp.model.entity.GithubUserRepos
 import ru.akimychev.githubclient.mvp.presenter.list.IReposListPresenter
@@ -29,7 +30,10 @@ class ReposPresenter(private val user: GithubUser?) : MvpPresenter<ReposView>() 
     @Inject
     lateinit var screen: IScreens
 
-    private var bag = CompositeDisposable()
+    @Inject
+    lateinit var reposScopeContainer: IReposScopeContainer
+
+    private var disposable = CompositeDisposable()
 
     class ReposListPresenter : IReposListPresenter {
 
@@ -71,7 +75,7 @@ class ReposPresenter(private val user: GithubUser?) : MvpPresenter<ReposView>() 
                     viewState.updateList()
                 }, {
                     Log.e("@@@", "Repo Something went wrong")
-                }).disposeBy(bag)
+                }).disposeBy(disposable)
         }
     }
 
@@ -82,7 +86,8 @@ class ReposPresenter(private val user: GithubUser?) : MvpPresenter<ReposView>() 
     }
 
     override fun onDestroy() {
+        reposScopeContainer.releaseReposSubComponent()
         super.onDestroy()
-        bag.dispose()
+        disposable.dispose()
     }
 }
