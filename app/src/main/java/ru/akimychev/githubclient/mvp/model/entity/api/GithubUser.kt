@@ -1,4 +1,4 @@
-package ru.akimychev.githubclient.mvp.model.entity
+package ru.akimychev.githubclient.mvp.model.entity.api
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose

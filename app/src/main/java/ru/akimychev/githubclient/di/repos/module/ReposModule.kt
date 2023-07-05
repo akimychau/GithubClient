@@ -7,11 +7,11 @@ import ru.akimychev.githubclient.di.repos.IReposScopeContainer
 import ru.akimychev.githubclient.di.repos.ReposScope
 import ru.akimychev.githubclient.mvp.model.api.IDataSource
 import ru.akimychev.githubclient.mvp.model.cache.IReposCache
-import ru.akimychev.githubclient.mvp.model.cache.ReposCacheImpl
+import ru.akimychev.githubclient.mvp.model.cache.impl.ReposCacheImpl
 import ru.akimychev.githubclient.mvp.model.database.AppDatabase
 import ru.akimychev.githubclient.mvp.model.network.INetworkStatus
 import ru.akimychev.githubclient.mvp.repository.IRepositoryGithubUserRepos
-import ru.akimychev.githubclient.mvp.repository.RepositoryGithubUserReposImpl
+import ru.akimychev.githubclient.mvp.repository.impl.RepositoryGithubUserReposImpl
 
 @Module
 class ReposModule {
@@ -22,13 +22,13 @@ class ReposModule {
 
     @ReposScope
     @Provides
-    fun userDetailsRepository(
+    fun reposRepository(
         api: IDataSource,
         networkStatus: INetworkStatus,
-        cache: IReposCache,
+        cache: IReposCache
     ): IRepositoryGithubUserRepos = RepositoryGithubUserReposImpl(api, networkStatus, cache)
 
     @ReposScope
     @Provides
-    open fun scopeContainer(app: App): IReposScopeContainer = app
+    fun scopeContainer(app: App): IReposScopeContainer = app
 }

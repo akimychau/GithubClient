@@ -1,9 +1,8 @@
-package ru.akimychev.githubclient.mvp.model.entity
+package ru.akimychev.githubclient.mvp.model.entity.database
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import ru.akimychev.githubclient.mvp.model.entity.RoomGithubUser
 
 @Entity(
     tableName = "repos",
@@ -18,6 +17,6 @@ data class RoomGithubUserRepos(
     @PrimaryKey
     val id: String,
     val name: String,
-    val forksCount: Int,
+    val url: String,
     var userId: String? = null
 )

@@ -5,6 +5,9 @@ import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface ForksCountView: MvpView {
-    fun showNumberOfForks(forks: String)
+interface CommitsView : MvpView {
+
+    fun init()
+    fun updateList()
+    fun browse(url: String)
 }

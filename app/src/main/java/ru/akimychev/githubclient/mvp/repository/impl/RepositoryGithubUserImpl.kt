@@ -1,12 +1,13 @@
-package ru.akimychev.githubclient.mvp.repository
+package ru.akimychev.githubclient.mvp.repository.impl
 
 
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import ru.akimychev.githubclient.mvp.model.api.IDataSource
 import ru.akimychev.githubclient.mvp.model.cache.IUserCache
-import ru.akimychev.githubclient.mvp.model.entity.GithubUser
+import ru.akimychev.githubclient.mvp.model.entity.api.GithubUser
 import ru.akimychev.githubclient.mvp.model.network.INetworkStatus
+import ru.akimychev.githubclient.mvp.repository.IRepositoryGithubUser
 
 class RepositoryGithubUserImpl(
     private val api: IDataSource,

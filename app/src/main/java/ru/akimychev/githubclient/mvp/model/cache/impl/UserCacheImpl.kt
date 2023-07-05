@@ -1,10 +1,11 @@
-package ru.akimychev.githubclient.mvp.model.cache
+package ru.akimychev.githubclient.mvp.model.cache.impl
 
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import ru.akimychev.githubclient.mvp.model.cache.IUserCache
 import ru.akimychev.githubclient.mvp.model.database.AppDatabase
-import ru.akimychev.githubclient.mvp.model.entity.GithubUser
-import ru.akimychev.githubclient.mvp.model.entity.RoomGithubUser
+import ru.akimychev.githubclient.mvp.model.entity.api.GithubUser
+import ru.akimychev.githubclient.mvp.model.entity.database.RoomGithubUser
 
 class UserCacheImpl(private val db: AppDatabase) : IUserCache {
 

@@ -6,7 +6,7 @@ import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 import ru.akimychev.githubclient.di.users.IUsersScopeContainer
-import ru.akimychev.githubclient.mvp.model.entity.GithubUser
+import ru.akimychev.githubclient.mvp.model.entity.api.GithubUser
 import ru.akimychev.githubclient.mvp.presenter.list.IUserListPresenter
 import ru.akimychev.githubclient.mvp.repository.IRepositoryGithubUser
 import ru.akimychev.githubclient.mvp.view.UsersView

@@ -1,4 +1,4 @@
-package ru.akimychev.githubclient.mvp.model.entity
+package ru.akimychev.githubclient.mvp.model.entity.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

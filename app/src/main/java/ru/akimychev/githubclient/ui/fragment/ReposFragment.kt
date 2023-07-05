@@ -11,7 +11,7 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.akimychev.githubclient.App
 import ru.akimychev.githubclient.databinding.FragmentReposBinding
-import ru.akimychev.githubclient.mvp.model.entity.GithubUser
+import ru.akimychev.githubclient.mvp.model.entity.api.GithubUser
 import ru.akimychev.githubclient.mvp.presenter.ReposPresenter
 import ru.akimychev.githubclient.mvp.view.IImageLoader
 import ru.akimychev.githubclient.mvp.view.ReposView
@@ -47,7 +47,7 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackPressedListener {
         return viewBinding.root
     }
 
-    override fun init(user: GithubUser) {
+    override fun init() {
         viewBinding.rvRepos.layoutManager = LinearLayoutManager(context)
         adapter = ReposRVAdapter(presenter.reposListPresenter)
         viewBinding.rvRepos.adapter = adapter

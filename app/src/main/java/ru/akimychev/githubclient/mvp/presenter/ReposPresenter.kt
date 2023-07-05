@@ -6,8 +6,8 @@ import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 import ru.akimychev.githubclient.di.repos.IReposScopeContainer
-import ru.akimychev.githubclient.mvp.model.entity.GithubUser
-import ru.akimychev.githubclient.mvp.model.entity.GithubUserRepos
+import ru.akimychev.githubclient.mvp.model.entity.api.GithubUser
+import ru.akimychev.githubclient.mvp.model.entity.api.GithubUserRepos
 import ru.akimychev.githubclient.mvp.presenter.list.IReposListPresenter
 import ru.akimychev.githubclient.mvp.repository.IRepositoryGithubUserRepos
 import ru.akimychev.githubclient.mvp.view.ReposView
@@ -58,7 +58,7 @@ class ReposPresenter(private val user: GithubUser?) : MvpPresenter<ReposView>() 
 
         loadData()
 
-        user?.let { viewState.init(it) }
+        user?.let { viewState.init() }
 
         reposListPresenter.itemClickListener = {
             router.navigateTo(screen.forks(reposListPresenter.repos[it.pos]))

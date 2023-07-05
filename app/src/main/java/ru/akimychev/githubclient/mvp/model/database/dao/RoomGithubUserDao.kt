@@ -1,4 +1,4 @@
-package ru.akimychev.githubclient.mvp.model.database
+package ru.akimychev.githubclient.mvp.model.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import ru.akimychev.githubclient.mvp.model.entity.RoomGithubUser
+import ru.akimychev.githubclient.mvp.model.entity.database.RoomGithubUser
 
 @Dao
 interface RoomGithubUserDao {

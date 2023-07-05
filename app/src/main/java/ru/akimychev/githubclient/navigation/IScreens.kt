@@ -1,8 +1,8 @@
 package ru.akimychev.githubclient.navigation
 
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import ru.akimychev.githubclient.mvp.model.entity.GithubUser
-import ru.akimychev.githubclient.mvp.model.entity.GithubUserRepos
+import ru.akimychev.githubclient.mvp.model.entity.api.GithubUser
+import ru.akimychev.githubclient.mvp.model.entity.api.GithubUserRepos
 
 interface IScreens {
 
