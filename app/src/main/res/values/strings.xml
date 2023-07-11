@@ -7,4 +7,6 @@
     <string name="text">Login</string>
     <string name="reposName">ReposName</string>
     <string name="number_of_forks">Number of forks:</string>
+    <string name="repositories">Repositories:</string>
+    <string name="commits">Commits:</string>
 </resources>
